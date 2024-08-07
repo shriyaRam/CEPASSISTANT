@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monograph Communications</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body,
+        h1,
+        p {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to bottom, #FFB6B9 0%, #FAE3D9 100%);
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100vh;
+        }
+
+        .header-line,
+        .footer-line {
+            height: 1px;
+            background-color: #2C2323;
+        }
+
+        h1 {
+            font-size: 72px;
+            font-weight: bold;
+            color: #2C2323;
+            line-height: 1.2;
+            position: relative;
+            padding-bottom: 20px;
+            /* Spacing for the underline */
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 80%;
+            /* adjust the width as per design */
+            height: 1px;
+            background-color: #2C2323;
+        }
+
+        p {
+            font-size: 24px;
+            color: #2C2323;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            position: relative;
+            padding-right: 20px;
+            /* Spacing for the vertical line */
+        }
+
+        p::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: 0;
+            width: 1px;
+            height: 80%;
+            /* Adjust the height as per design */
+            background-color: #2C2323;
+            transform: translateY(-50%);
+        }
+
+        /* .mailing-list {
+            display: flex;
+            margin-bottom: 40px;
+        } */
+
+        .mailing-list input {
+            flex: 1;
+            padding: 10px 20px;
+            font-size: 18px;
+            border: 2px solid #2C2323;
+            margin-right: -40px;
+            /* Adjusted for overlapping button */
+            border-top-left-radius: 50px;
+            border-bottom-left-radius: 50px;
+            border-right: none;
+        }
+
+        .mailing-list button {
+            background-color: #2C2323;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-top-right-radius: 50px;
+            border-bottom-right-radius: 50px;
+        }
+
+        .about-link {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            width: max-content;
+            /* Adjusted for proper alignment */
+        }
+
+        .about-link span {
+            font-size: 18px;
+            color: #2C2323;
+        }
+
+        .about-link:after {
+            content: '→';
+            color: #2C2323;
+            font-size: 18px;
+            margin-left: 10px;
+        }
+
+        .content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .content>div {
+            width: 50%;
+        }
+
+        .right-content {
+            text-align: right;
+        }
+
+        .chat-container {
+            max-width: 700px;
+            margin: 50px auto;
+            /* Remove background-color property */
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-header {
+            /* Remove background-color property */
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .chat-messages {
+            padding: 15px;
+            overflow-y: scroll;
+            max-height: 300px;
+            flex-grow: 1;
+        }
+
+        .message-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .user-message,
+        .bot-message {
+            /* Remove background-color property */
+            padding: 10px;
+            border-radius: 8px;
+            max-width: 70%;
+            word-wrap: break-word;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .user-message::before,
+        .bot-message::before {
+            content: '';
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin: 0 10px;
+        }
+
+        .user-message::before {
+            background: url('static/images/human_logo.png') center/cover;
+            /* Replace with actual user logo URL */
+            order: 2;
+        }
+
+        .bot-message::before {
+            background: url('static/images/robot_logo.png') center/cover;
+            /* Replace with actual bot logo URL */
+            /* No order property needed for left-side positioning */
+        }
+
+        .user-message {
+            /* Remove background-color property */
+            color: #000;
+            margin-left: auto;
+        }
+
+        .bot-message {
+            /* Remove background-color property */
+            color: #000;
+            /* Ensure the bot-message aligns items to start for left-side icon */
+            align-items: flex-start;
+        }
+
+        .input-container {
+            padding: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .user-input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+
+        .send-button {
+            background-color: #0a0a0a;
+            color: #fff;
+            padding: 10px 15px;
+            margin-right: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .audio-button {
+            background-color: #0a0a0a;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .red-button,
+        .green-button {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .red-button {
+            background-color: #040003;
+            color: #fff;
+            margin-right: 10px;
+        }
+
+        .green-button {
+            background-color: #f7f9f7;
+            color: #060000;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header-line"></div>
+    <header>
+        <h1>Plain language, <br>Extraordinary results</h1>
+    </header>
+    <div class="content">
+        <div class="left-content">
+            <!-- <p>We specialize in creative, clear, and cohesive communications solutions that build memorable experiences. -->
+            <!-- </p> -->
+            <div class="chat-container">
+                <div class="chat-header">Let's chat!</div>
+                <div class="chat-messages" id="chat-messages"></div>
+                <div class="input-container">
+                    <div class="red-button">&#10006;</div>
+                    <input type="text" class="user-input" id="user-input" placeholder="Type your message...">
+                    <button class="send-button" onclick="sendMessage()">Send</button>
+                    <button class="audio-button" onclick="audioInput()">Record</button>
+                    <div class="green-button">&#10004;</div>
+                </div>
+            </div>
+            <!-- <div class="mailing-list">
+                <input type="text" placeholder="Your email">
+                <button>→</button>
+            </div> -->
+            <div class="about-link">
+                <span>About Us</span>
+            </div>
+        </div>
+        <div class="right-content">
+            <p>Monograph Communications was built on the belief that simple can be extraordinary.</p>
+        </div>
+    </div>
+    <div class="footer-line"></div>
+    <script>
+        function sendMessage() {
+            const userInput = document.getElementById('user-input').value;
+            if (userInput.trim() === '') return;
+
+            // Display user message
+            displayUserMessage(userInput);
+
+            // Make AJAX request to Flask server
+            fetch('/api/main', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ message: userInput }),
+            })
+                .then(response => response.json())  // Convert response to JSON
+                .then(data => {
+                    // Display bot response
+                    console.log(data);
+                    displayBotMessage(data.result);
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        function displayUserMessage(message) {
+            const chatMessages = document.getElementById('chat-messages');
+            const userMessage = `<div class="message-container"><div class="user-message">${message}</div></div>`;
+            chatMessages.innerHTML += userMessage;
+            document.getElementById('user-input').value = '';
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function displayBotMessage(message) {
+            const chatMessages = document.getElementById('chat-messages');
+            const botMessage = `<div class="message-container"><div class="bot-message">${message}</div></div>`;
+            chatMessages.innerHTML += botMessage;
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function audioInput() {
+            // Add your audio input logic here
+            console.log('Audio input logic');
+        }
+    </script>
+
+</body>
+
+</html>

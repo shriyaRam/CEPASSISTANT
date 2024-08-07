@@ -1,0 +1,4 @@
+kani[openai]
+gradio
+openai
+python-dotenv

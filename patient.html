@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f3f3f3;
+        }
+
+        .chat-container {
+            max-width: 700px;
+            margin: 50px auto;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-header {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .chat-messages {
+            padding: 15px;
+            overflow-y: scroll;
+            max-height: 300px;
+            flex-grow: 1;
+        }
+
+        .message-container {
+            display: flex;
+            align-items: flex-end;
+            margin-bottom: 10px;
+        }
+
+        .user-message,
+        .bot-message {
+            background-color: #DCF8C6;
+            padding: 10px;
+            border-radius: 8px;
+            max-width: 70%;
+            word-wrap: break-word;
+            position: relative;
+            display: flex;
+        }
+
+        .user-message::before,
+        .bot-message::before {
+            content: '';
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin: 0 10px;
+        }
+
+        .user-message::before {
+            background: url('human_logo.png') center/cover;
+            /* Replace with actual user logo URL */
+            order: 2;
+        }
+
+        .bot-message::before {
+            background: url('robot_logo.png') center/cover;
+            /* Replace with actual bot logo URL */
+            order: 1;
+        }
+
+        .user-message {
+            background-color: #DCF8C6;
+            color: #000;
+            margin-left: auto;
+        }
+
+        .bot-message {
+            background-color: #E0E0E0;
+            color: #000;
+        }
+
+        .input-container {
+            padding: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .user-input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+
+        .send-button {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .red-button,
+        .green-button {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .red-button {
+            background-color: #FF4D4D;
+            color: #fff;
+            margin-right: 10px;
+        }
+
+        .green-button {
+            background-color: #4CAF50;
+            color: #fff;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="chat-container">
+        <div class="chat-header">Chatbot</div>
+        <div class="chat-messages" id="chat-messages"></div>
+        <div class="input-container">
+            <div class="red-button">&#10006;</div>
+            <input type="text" class="user-input" id="user-input" placeholder="Type your message...">
+            <button class="send-button" onclick="sendMessage()">Send</button>
+            <div class="green-button">&#10004;</div>
+        </div>
+    </div>
+
+    <script>
+        function sendMessage() {
+            const userInput = document.getElementById('user-input').value;
+            if (userInput.trim() === '') return;
+
+            // Display user message
+            displayUserMessage(userInput);
+
+            // Simulate sending message to Python backend (replace with actual API call)
+            setTimeout(() => {
+                const botResponse = "This is a sample bot response. Replace it with an actual ML backend response.";
+                displayBotMessage(botResponse);
+            }, 500);
+        }
+
+        function displayUserMessage(message) {
+            const chatMessages = document.getElementById('chat-messages');
+            const userMessage = `<div class="message-container"><div class="user-message">${message}</div></div>`;
+            chatMessages.innerHTML += userMessage;
+            document.getElementById('user-input').value = '';
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function displayBotMessage(message) {
+            const chatMessages = document.getElementById('chat-messages');
+            const botMessage = `<div class="message-container"><div class="bot-message">${message}</div></div>`;
+            chatMessages.innerHTML += botMessage;
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+    </script>
+
+</body>
+
+</html>
